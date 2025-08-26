@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,67 +16,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: '20' # Or your preferred Node.js version
 
-      - name: Clear npm cache and reset configuration
-        run: |
-          npm cache clean --force
-          npm config delete registry || true
-          npm config set registry https://registry.npmjs.org/
-          npm config set //registry.npmjs.org/:_authToken=""
-          npm config set fetch-retries 5
-          npm config set fetch-retry-factor 2
-          npm config set fetch-retry-mintimeout 10000
-          npm config set fetch-retry-maxtimeout 60000
-
-      - name: Install dependencies with multiple fallbacks
-        run: |
-          echo "🔄 Attempting to install dependencies..."
-          
-          # Method 1: npm ci
-          if npm ci --no-audit --no-fund --loglevel=verbose; then
-            echo "✅ npm ci successful"
-            exit 0
-          fi
-          
-          echo "⚠️  npm ci failed, trying npm install..."
-          # Method 2: npm install
-          if npm install --no-audit --no-fund --loglevel=verbose; then
-            echo "✅ npm install successful"
-            exit 0
-          fi
-          
-          echo "⚠️  npm install failed, trying with legacy peer deps..."
-          # Method 3: npm install with legacy peer deps
-          if npm install --legacy-peer-deps --no-audit --no-fund --loglevel=verbose; then
-            echo "✅ npm install with legacy-peer-deps successful"
-            exit 0
-          fi
-          
-          echo "⚠️  Trying to remove lock file and reinstall..."
-          # Method 4: Remove lock file and try again
-          rm -f package-lock.json
-          if npm install --no-audit --no-fund --loglevel=verbose; then
-            echo "✅ npm install after removing lock file successful"
-            exit 0
-          fi
-          
-          echo "❌ All npm installation methods failed, trying Yarn as fallback..."
-          # Method 5: Fallback to Yarn
-          npm install -g yarn
-          if yarn install --frozen-lockfile; then
-            echo "✅ Yarn install successful"
-            exit 0
-          fi
-          
-          if yarn install; then
-            echo "✅ Yarn install (without frozen lockfile) successful"
-            exit 0
-          fi
-          
-          echo "❌ All installation methods failed"
-          exit 1
+      - name: Install dependencies
+        run: npm install
 
       - name: Build React app with Vite
         run: npm run build
@@ -86,25 +29,14 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ap-south-1
 
       - name: Deploy to S3
-        run: |
-          echo "🚀 Deploying to S3 bucket: web-student-dams"
-          aws s3 sync ./dist/ s3://web-student-dams --delete --cache-control max-age=31536000,public
-          # Set no-cache for HTML files to ensure updates are seen immediately
-          aws s3 cp s3://web-student-dams/index.html s3://web-student-dams/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type text/html
+        run: aws s3 sync ./dist/ s3://web-student-dams --delete
         env:
-          AWS_REGION: us-east-1
+          AWS_REGION: ap-south-1
 
       - name: Invalidate CloudFront Cache
-        run: |
-          echo "🔄 Invalidating CloudFront cache..."
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
         env:
-          AWS_REGION: us-east-1
-
-      - name: Deployment completed
-        run: |
-          echo "✅ Deployment completed successfully!"
-          echo "🌐 Your React app is now live via CloudFront"
+          AWS_REGION: ap-south-1
