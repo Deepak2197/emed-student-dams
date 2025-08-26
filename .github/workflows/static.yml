@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set NPM registry
+        run: npm config set registry https://registry.npmjs.org/
+
+      - name: Clean NPM cache
+        run: npm cache clean --force
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
