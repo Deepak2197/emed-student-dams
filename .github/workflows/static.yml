@@ -1,3 +1,25 @@
+Skip to content
+Navigation Menu
+Deepak2197
+emed-student-dams
+
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+2
+Insights
+Settings
+Deploy React App to S3 and CloudFront
+Update static.yml #22
+Jobs
+Run details
+Workflow file for this run
+.github/workflows/static.yml at 947d2a7
 name: Deploy React App to S3 and CloudFront
 
 on:
@@ -22,7 +44,6 @@ jobs:
         run: |
           npm install --legacy-peer-deps
           npm run build
-
       - name: Build React app with Vite
         run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'  
       
@@ -37,3 +58,4 @@ jobs:
         run: aws s3 sync ./dist s3://web-student-dams 
         env:
           AWS_REGION: ap-south-1
+Update static.yml · Deepak2197/emed-student-dams@947d2a7
