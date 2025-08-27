@@ -23,6 +23,9 @@ jobs:
           npm install --legacy-peer-deps
           npm run build
 
+      - name: Build React app with Vite
+        run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'  
+      
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
