@@ -3,12 +3,12 @@ name: Deploy React Vite App to S3 and Invalidate CloudFront
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - main
 
 env:
-  AWS_REGION: ap-south-1 # Your AWS region
-  S3_BUCKET_NAME: web-student-dams # Your S3 bucket name
-  CLOUDFRONT_DISTRIBUTION_ID: E24XAO9VUI2QUO # Your CloudFront distribution ID
+  AWS_REGION: ap-south-1
+  S3_BUCKET_NAME: web-student-dams
+  CLOUDFRONT_DISTRIBUTION_ID: E24XAO9VUI2QUO
 
 jobs:
   deploy:
@@ -20,13 +20,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Or your preferred Node.js version
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build Vite project
-        run: npm run build # Or yarn build if using yarn
+        run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=4096
 
