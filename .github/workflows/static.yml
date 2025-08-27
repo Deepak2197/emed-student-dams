@@ -3,47 +3,27 @@ name: Deploy React App to S3 and CloudFront
 on:
   push:
     branches:
-      - main
-
-env:
-  NODE_OPTIONS: --max-old-space-size=4096  # global memory limit for Node
+      - main # Trigger on pushes to the main branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js v20
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18' # Or your preferred Node.js version
 
-      # 3️⃣ Set NPM registry
-      - name: Set NPM registry
-        run: npm config set registry https://registry.npmjs.org/
-
-      # 4️⃣ Clean NPM cache
-      - name: Clean NPM cache
-        run: npm cache clean --force
-
-      # 5️⃣ Install dependencies
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --force
+        run: npm install --exact
 
-      # 6️⃣ Build React app with Vite
-      - name: Build React app
-        run: npm run build   # NODE_OPTIONS applies globally
+      - name: Build React app with Vite
+        run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'
 
-      # 7️⃣ Verify dist folder
-      - name: Verify build folder
-        run: ls -l ./dist
-
-      # 8️⃣ Configure AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -51,9 +31,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      # 9️⃣ Deploy to S3
       - name: Deploy to S3
         run: aws s3 sync ./dist/ s3://web-student-dams --delete
         env:
           AWS_REGION: ap-south-1
-
