@@ -78,7 +78,15 @@ const Bookmarks = () => {
 
       // Open the new window
 
+<<<<<<< HEAD
       window.open(`/testresult/dqbank/${user_id}d${DropdownId}`, "_blank", features);
+=======
+      window.open(
+        `/testresult/dqbank/${user_id}d${DropdownId}`,
+        "_blank",
+        features
+      );
+>>>>>>> 50d8b36 (first commit)
     } catch (error) {
       console.log(error);
     }
@@ -86,10 +94,15 @@ const Bookmarks = () => {
 
   const handleQueSelect = async (id) => {
     // console.log(id);
+<<<<<<< HEAD
     ResultView(id)
     
   };
   
+=======
+    ResultView(id);
+  };
+>>>>>>> 50d8b36 (first commit)
 
   //Custom parser option for image
   const parserOptions = {
@@ -97,20 +110,37 @@ const Bookmarks = () => {
       // Handle <p> that contains an image
       if (domNode.name === "p" && domNode.children) {
         const imgNode = domNode.children.find((child) => child.name === "img");
+<<<<<<< HEAD
   
         if (imgNode) {
           const src = imgNode.attribs.src;
   
+=======
+
+        if (imgNode) {
+          const src = imgNode.attribs.src;
+
+>>>>>>> 50d8b36 (first commit)
           // Extract text inside <p> but ignore the <img>
           const textOnly = domNode.children
             .filter((child) => child.type === "text")
             .map((child) => child.data)
             .join(" ");
+<<<<<<< HEAD
   
           return (
             <Tooltip
               placement="right"
               title={<img src={src} alt="No Preview" style={{ width: "200px" }} />}
+=======
+
+          return (
+            <Tooltip
+              placement="right"
+              title={
+                <img src={src} alt="No Preview" style={{ width: "200px" }} />
+              }
+>>>>>>> 50d8b36 (first commit)
             >
               <p style={{ cursor: "pointer", display: "inline-block" }}>
                 {textOnly || "Hover to view image"}
@@ -121,7 +151,10 @@ const Bookmarks = () => {
       }
     },
   };
+<<<<<<< HEAD
   
+=======
+>>>>>>> 50d8b36 (first commit)
 
   return (
     <div className="DqbBookmarkData">
@@ -140,21 +173,41 @@ const Bookmarks = () => {
         ) : (
           <div>
             {qbListData.map((itm, i) => (
+<<<<<<< HEAD
               <div key={i} className="tab-content1" style={{ position: "relative" }}>
+=======
+              <div
+                key={i}
+                className="tab-content1"
+                style={{ position: "relative" }}
+              >
+>>>>>>> 50d8b36 (first commit)
                 <div className="tab-pane fade show active">
                   <div id="post_list">
                     <div className="widget curriculum-emez">
                       <div className="widget-post-bx">
+<<<<<<< HEAD
                         <div className="setofDiv">
+=======
+                        <div
+                          className="setofDiv"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleSectionClick(itm.topic_id)}
+                        >
+>>>>>>> 50d8b36 (first commit)
                           <div className="widget-post clearfix">
                             <div className="listbox_bookmark text-center"></div>
                             <div className="ttr-post-info">
                               <div className="ttr-post-header flex-grow-1">
+<<<<<<< HEAD
                                 <span
                                   className="arrowSet"
                                   style={{ cursor: "pointer" }}
                                   onClick={() => handleSectionClick(itm.topic_id)}
                                 >
+=======
+                                <span className="arrowSet">
+>>>>>>> 50d8b36 (first commit)
                                   {arrowToggle === itm.topic_id ? (
                                     <FaAngleDown size={20} />
                                   ) : (
@@ -188,7 +241,13 @@ const Bookmarks = () => {
                                         <img
                                           src={it.qbank_image || ""}
                                           alt=""
+<<<<<<< HEAD
                                           onError={(e) => (e.target.src = "/logo.png")}
+=======
+                                          onError={(e) =>
+                                            (e.target.src = "/logo.png")
+                                          }
+>>>>>>> 50d8b36 (first commit)
                                           className="rounded-circle me-3"
                                           style={{
                                             height: "50px",
@@ -202,9 +261,21 @@ const Bookmarks = () => {
                                       </div>
                                       {it.length}
                                       {DropdownId == it.qbank_id ? (
+<<<<<<< HEAD
                                         <FaAngleDown size={20} className="text-muted" />
                                       ) : (
                                         <FaAngleRight size={20} className="text-muted" />
+=======
+                                        <FaAngleDown
+                                          size={20}
+                                          className="text-muted"
+                                        />
+                                      ) : (
+                                        <FaAngleRight
+                                          size={20}
+                                          className="text-muted"
+                                        />
+>>>>>>> 50d8b36 (first commit)
                                       )}
                                     </div>
                                     {DropdownId === it.qbank_id && (
@@ -214,12 +285,25 @@ const Bookmarks = () => {
                                             {questionList.map((item) => (
                                               <li
                                                 style={{ cursor: "pointer" }}
+<<<<<<< HEAD
                                                 onClick={() => handleQueSelect(item.id)}
+=======
+                                                onClick={() =>
+                                                  handleQueSelect(item.id)
+                                                }
+>>>>>>> 50d8b36 (first commit)
                                                 key={item.id}
                                                 className="list-group-item py-3 px-2 d-flex align-items-start"
                                               >
                                                 <div className="w-100">
+<<<<<<< HEAD
                                                   {HTMLReactParser(item.question, parserOptions)}
+=======
+                                                  {HTMLReactParser(
+                                                    item.question,
+                                                    parserOptions
+                                                  )}
+>>>>>>> 50d8b36 (first commit)
                                                 </div>
                                               </li>
                                             ))}

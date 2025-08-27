@@ -6,15 +6,28 @@ import "../../assets/newjs/responsive.css";
 import "../../assets/css/News-Article/style.css";
 import "../../assets/css/News-Article/responsive.css";
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 50d8b36 (first commit)
 import { Link, useParams } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import axiosInstance from "../../API/axiosConfig";
 import { FaClipboard, FaHeart, FaThumbsUp } from "react-icons/fa";
+<<<<<<< HEAD
 import { Spin, notification } from "antd";
 import { Helmet } from "react-helmet-async";
 import NewsArticledetails from "./NewsArticledetails";
 import parse from "html-react-parser";
+=======
+import { Avatar, Button, Input, Spin, notification } from "antd";
+import { Helmet } from "react-helmet-async";
+import NewsArticledetails from "./NewsArticledetails";
+import parse from "html-react-parser";
+import { API_ENDPOINTS } from "../../ulits/apiConstant";
+import { Modal as AntModal } from "antd";
+
+>>>>>>> 50d8b36 (first commit)
 import NewArticledetailSkeleton from "../../view/Newsandarticle/NewsarticleSkelton/NewArticledetails";
 
 const ArticlesTitleDetails = () => {
@@ -39,21 +52,107 @@ const ArticlesTitleDetails = () => {
   const [isfav, setisfav] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+<<<<<<< HEAD
   const getCalled = async () => {
     try {
       const articleData = await axiosInstance.post(
         `/v2_data_model/getHomeNewAiNewsArticalsv2`,
+=======
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [commentLoading, setCommentLoading] = useState(false);
+
+  const [articleID, setArticleID] = useState(null);
+
+  const showConfirm = (comment) => {
+    AntModal.confirm({
+      title: "Confirm Deletion",
+      content: "Are you sure you want to delete this message?",
+      okText: "Yes",
+      cancelText: "No",
+      onOk() {
+        handleDeleteComment(comment.id);
+      },
+      onCancel() {
+        console.log("Cancelled");
+      },
+    });
+  };
+
+  const handleDeleteComment = async (cid) => {
+    setComments(comments.filter((comment) => comment.id !== cid));
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.NEWS_AND_ARTICLES.DELETE_COMMENT,
+      {
+        id: cid,
+        user_id: userid,
+        post_id: articleID,
+      }
+    );
+    if (response?.data?.success) {
+      getComments();
+    }
+  };
+
+  const handleAddComment = async () => {
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.NEWS_AND_ARTICLES.ADD_COMMENT,
+      {
+        post_id: articleID,
+        user_id: userid,
+        comment: newComment,
+      }
+    );
+    setNewComment("");
+    getComments();
+    if (response?.data?.success) {
+      setNewComment("");
+      getComments();
+    }
+  };
+
+  const HandleComment = (id) => {
+    scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    setShowComments(true);
+    getComments(id);
+  };
+
+  const getComments = async (id) => {
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.NEWS_AND_ARTICLES.GET_POST_COMMENT,
+      {
+        post_id: articleID,
+        user_id: userid,
+      }
+    );
+    setComments(response?.data?.data);
+  };
+
+  const getCalled = async () => {
+    try {
+      const articleData = await axiosInstance.post(
+        API_ENDPOINTS.HOMEPAGE_INDEX.GET_HOME_NEWS_AI_NEWSARTICLE_V2,
+>>>>>>> 50d8b36 (first commit)
         { user_id: userid }
       );
       const selected = articleData?.data?.data?.find(
         (item) => item.slug === slug
       );
+<<<<<<< HEAD
+=======
+      setArticleID(selected.id);
+>>>>>>> 50d8b36 (first commit)
       if (!selected) {
         console.warn("Article not found with id:", slug);
         return;
       }
       const response = await axiosInstance.post(
+<<<<<<< HEAD
         `/v2_data_model/get_articles_detail`,
+=======
+        API_ENDPOINTS.NEWS_AND_ARTICLES.GET_ARTICLE_DETAIL,
+>>>>>>> 50d8b36 (first commit)
         {
           article_id: selected.id,
           user_id: userid,
@@ -62,12 +161,20 @@ const ArticlesTitleDetails = () => {
           id: selected.id,
         }
       );
+<<<<<<< HEAD
       setLoading(false)
       setisfav(response?.data?.data?.user_bookmark);
       setnewart(response?.data?.data?.article);
       console.log(response?.data?.data?.article);
       setCountAdd(response?.data?.data?.user_like);
       setIsLoading(false);
+=======
+        setLoading(false);
+        setisfav(response?.data?.data?.user_bookmark);
+        setnewart(response?.data?.data?.article);
+        setCountAdd(response?.data?.data?.user_like);
+        setIsLoading(false);
+>>>>>>> 50d8b36 (first commit)
     } catch (error) {
       console.error("Error fetching article details:", error);
     }
@@ -82,12 +189,24 @@ const ArticlesTitleDetails = () => {
   }, [userid]);
 
   const handleLike = async (num, id) => {
+<<<<<<< HEAD
     await axiosInstance.post("v2_data_model/update_like_bookmark_status", {
       user_id: userid,
       article_id: id,
       is_liked: num,
       type: newarticel?.type,
     });
+=======
+    await axiosInstance.post(
+      API_ENDPOINTS.NEWS_AND_ARTICLES.LIKE_AND_BOOKMARK_STATUS,
+      {
+        user_id: userid,
+        article_id: id,
+        is_liked: num,
+        type: newarticel?.type,
+      }
+    );
+>>>>>>> 50d8b36 (first commit)
     notification.open({
       message: (
         <span>
@@ -103,12 +222,24 @@ const ArticlesTitleDetails = () => {
   };
 
   const handleFav = async (num, id) => {
+<<<<<<< HEAD
     await axiosInstance.post("v2_data_model/update_like_bookmark_status", {
       user_id: userid,
       article_id: id,
       is_bookmarked: num,
       type: newarticel?.type,
     });
+=======
+    await axiosInstance.post(
+      API_ENDPOINTS.NEWS_AND_ARTICLES.LIKE_AND_BOOKMARK_STATUS,
+      {
+        user_id: userid,
+        article_id: id,
+        is_bookmarked: num,
+        type: newarticel?.type,
+      }
+    );
+>>>>>>> 50d8b36 (first commit)
     notification.open({
       message: (
         <span>
@@ -216,6 +347,7 @@ const ArticlesTitleDetails = () => {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
     {loading?(<NewArticledetailSkeleton/>):(
       <div className="article-full">
         <div className="container">
@@ -307,10 +439,119 @@ const ArticlesTitleDetails = () => {
               <div className="col-lg-3 col-md-3 col-6">
                 <div className="article-views-group">
                   {/* <img
+=======
+      {loading ? (
+        <NewArticledetailSkeleton />
+      ) : (
+        <div className="article-full">
+          <div className="container">
+            <div className="sectionBorder">
+              <div className="row">
+                <div className="col-lg-8 col-md-12 col-sm-12 col-12">
+                  <h1>{newarticel?.title}</h1>
+                </div>
+
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <div className="articles-share-group">
+                    <ul>
+                      <p id="p1" style={{ display: "none" }}>
+                        news-and-article/375
+                      </p>
+
+                      <li>
+                        <Link to={"#"} className="reed" onClick={HandleShare}>
+                          <em className="fa fa-share"></em> Share
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"#"}
+                          className="reed"
+                          onClick={() =>
+                            handleLike(
+                              countAdd == 0 ? 0 : 1,
+                              newarticel?.article_id
+                            )
+                          }
+                        >
+                          {countAdd != 0 ? (
+                            <span>
+                              <FaThumbsUp
+                                style={{ marginRight: "4px" }}
+                                color="#007aff"
+                                size={20}
+                              />
+                              Liked
+                            </span>
+                          ) : (
+                            <span>
+                              {" "}
+                              <FaThumbsUp
+                                style={{ marginRight: "4px" }}
+                                size={20}
+                                color="gray"
+                              />
+                              Like
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                      <span style={{ display: "none" }} id="book">
+                        375
+                      </span>
+                      <li>
+                        <Link
+                          to={"#"}
+                          className="reed"
+                          onClick={() => HandleComment(newarticel.id)}
+                        >
+                          <em className="fa fa-comment"></em> Comment
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to={"#"}
+                          className="reed"
+                          onClick={() =>
+                            handleFav(
+                              isfav == 0 ? 0 : 1,
+                              newarticel?.article_id
+                            )
+                          }
+                        >
+                          {" "}
+                          {isfav == 1 ? <FaHeart color="red" /> : <FaHeart />}
+                          &nbsp; Favourite
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-3 col-md-3 col-6">
+                  <div className="article-views-group">
+                    {/* <img
+                    src="https://d2enu63wt1sf3u.cloudfront.net/web_assets/images/News-Article/total-view.png"
+                    loading="lazy" alt="img-1"
+                  /> */}
+                    <h5>
+                      {newarticel?.views}
+                      <h6>
+                        <span>Total Views</span>
+                      </h6>
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-3 col-6">
+                  <div className="article-views-group">
+                    {/* <img
+>>>>>>> 50d8b36 (first commit)
                     className="bg1"
                     src="https://d2enu63wt1sf3u.cloudfront.net/web_assets/images/News-Article/total-like.png"
                     loading="lazy" alt="img-1"
                   /> */}
+<<<<<<< HEAD
                   <h5>
                     {newarticel?.likes}
                     <h6>
@@ -322,10 +563,24 @@ const ArticlesTitleDetails = () => {
               <div className="col-lg-3 col-md-3 col-6">
                 <div className="article-views-group">
                   {/* <img
+=======
+                    <h5>
+                      {newarticel?.likes}
+                      <h6>
+                        <span>Total Likes</span>
+                      </h6>
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-3 col-6">
+                  <div className="article-views-group">
+                    {/* <img
+>>>>>>> 50d8b36 (first commit)
                     className="bg2"
                     src="https://d2enu63wt1sf3u.cloudfront.net/web_assets/images/News-Article/publish_by.png"
                     loading="lazy" alt="img-1"
                   /> */}
+<<<<<<< HEAD
                   <h5>
                     {newarticel?.created_by || `cortexAi`}
                     <h6>
@@ -337,10 +592,24 @@ const ArticlesTitleDetails = () => {
               <div className="col-lg-3 col-md-3 col-6">
                 <div className="article-views-group">
                   {/* <img
+=======
+                    <h5>
+                      {newarticel?.created_by || `cortexAi`}
+                      <h6>
+                        <span>Published By</span>
+                      </h6>
+                    </h5>
+                  </div>
+                </div>
+                <div className="col-lg-3 col-md-3 col-6">
+                  <div className="article-views-group">
+                    {/* <img
+>>>>>>> 50d8b36 (first commit)
                     className="bg3"
                     src="https://d2enu63wt1sf3u.cloudfront.net/web_assets/images/News-Article/publish-on.png"
                     loading="lazy" alt="img-1"
                   /> */}
+<<<<<<< HEAD
                   <h5>
                     {formatSecondsToDate(Number(newarticel?.creation_date))}
                     <h6>
@@ -393,13 +662,200 @@ const ArticlesTitleDetails = () => {
                       </>
                     )}
                   </>
+=======
+                    <h5>
+                      {formatSecondsToDate(Number(newarticel?.creation_date))}
+                      <h6>
+                        {" "}
+                        <span> published on </span>
+                      </h6>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-12 col-md-12 col-lg-12 col-12">
+                  {isLoading ? (
+                    <Spin
+                      size="large"
+                      tip="Loading..."
+                      style={{ width: "100%" }}
+                    />
+                  ) : (
+                    <>
+                      {newarticel.isAi === "2" ? (
+                        <>
+                          <div className="article-pehragraph">
+                            <h2>Summary</h2>
+                            <div>{parse(newarticel?.small_content)}</div>
+                          </div>
+                          <div className="article-pehragraph">
+                            <h2>Description</h2>
+                            <div>{parse(newarticel?.content)}</div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <>
+                            <div className="article-pehragraph">
+                              <h2>Summary</h2>
+                              <div>{parse(newarticel?.description)}</div>
+                              <figure className="image">
+                                {/* <img src={newarticel?.image} /> */}
+                              </figure>
+                            </div>
+                            <div className="article-pehragraph">
+                              <h2>Description</h2>
+                              <div>{parse(newarticel?.news_content)}</div>
+                              <figure className="image">
+                                {/* <img src={newarticel?.image} /> */}
+                              </figure>
+                            </div>
+                          </>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+                {/*Comment Section*/}
+                {showComments && (
+                  <div
+                    className="CommentsContainer"
+                    style={{
+                      marginTop: "20px",
+                      padding: "20px",
+                      background: "#eeeeee",
+                      backgroundImage:
+                        "linear-gradient(0deg, rgba(238, 238, 238, 1) 0%, rgba(250, 250, 250, 1) 52%, rgba(255, 255, 255, 1) 100%)",
+                      borderRadius: "8px",
+                      border: "none",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        marginBottom: "20px",
+                        fontSize: "18px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      All Comments
+                    </h3>
+
+                    <div style={{ marginBottom: "20px" }}>
+                      <Input.TextArea
+                        rows={3}
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Write your comment..."
+                        maxLength={500}
+                        style={{ marginBottom: "10px" }}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={handleAddComment}
+                        loading={commentLoading}
+                        style={{
+                          background: "#007aff",
+                          borderColor: "#007aff",
+                        }}
+                      >
+                        Post Comment
+                      </Button>
+                    </div>
+
+                    <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+                      {comments.length === 0 ? (
+                        <p style={{ textAlign: "center", color: "#999" }}>
+                          No comments yet
+                        </p>
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "16px",
+                          }}
+                        >
+                          {comments.map((comment) => (
+                            <div
+                              key={comment.id}
+                              style={{
+                                display: "flex",
+                                gap: "12px",
+                                padding: "12px",
+                                background: "#fff",
+                                borderRadius: "8px",
+                              }}
+                            >
+                              <Avatar
+                                size={40}
+                                src={
+                                  comment.profile_picture ||
+                                  "https://joesch.moe/api/v1/random"
+                                }
+                                style={{
+                                  backgroundColor: "#eeeeee",
+                                  backgroundImage:
+                                    "linear-gradient(184deg, #eeeeee 15%, #ffffff 100%)",
+                                  flexShrink: 0,
+                                }}
+                              />
+                              <div style={{ flex: 1 }}>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    marginBottom: "4px",
+                                  }}
+                                >
+                                  <div className="">
+                                    <span style={{ fontWeight: "600" }}>
+                                      {comment.name || "Anonymous"}
+                                    </span>
+                                  </div>
+                                  {comment.user_id === userid && (
+                                    <span
+                                      style={{
+                                        cursor: "pointer",
+                                        color: "#007aff",
+                                        fontSize: "25px",
+                                      }}
+                                    >
+                                      <em
+                                        className="fa fa-trash"
+                                        onClick={() => showConfirm(comment)}
+                                      ></em>
+                                    </span>
+                                  )}
+                                </div>
+                                <div
+                                  style={{
+                                    margin: "4px 0",
+                                    wordBreak: "break-word",
+                                  }}
+                                >
+                                  {comment.comment}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+>>>>>>> 50d8b36 (first commit)
                 )}
               </div>
             </div>
           </div>
         </div>
+<<<<<<< HEAD
       </div>
     )}
+=======
+      )}
+>>>>>>> 50d8b36 (first commit)
       {/* Begin: Model Code  */}
       <Modal show={show} onHide={handleClose} className="articlemsg">
         <Modal.Header closeButton></Modal.Header>

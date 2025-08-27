@@ -217,7 +217,12 @@ function Myprofile({ setIsAuthenticated }) {
                 //   ? userData.profile_picture
                 //   :
 
+<<<<<<< HEAD
                 "https://d2enu63wt1sf3u.cloudfront.net/react_emed_web/icons.png"
+=======
+                // "https://d2enu63wt1sf3u.cloudfront.net/react_emed_web/icons.png"
+                "/menu.svg"
+>>>>>>> 50d8b36 (first commit)
               }
               className="onclck-prfl-a"
             />

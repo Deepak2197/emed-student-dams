@@ -13,7 +13,11 @@ const AllLounge = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getAllCat = async () => {
+<<<<<<< HEAD
       const response = await axiosInstance.get(
+=======
+      const response = await axiosInstance.post(
+>>>>>>> 50d8b36 (first commit)
         API_ENDPOINTS.DOCTOR_LOUNGE.PODCAST_CATEGORY_LIST
       );
       if (response.status) {

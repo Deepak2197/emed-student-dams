@@ -123,11 +123,23 @@ const Viewprofile = () => {
     setEditMode((prev) => ({ ...prev, [field]: true }));
 
   const handleFieldSave = (field) => {
+<<<<<<< HEAD
     setEditMode((prev) => ({ ...prev, [field]: false }));
     setCurrentField(field);
     setFormFields(field);
     setIsModalVisible(true);
   };
+=======
+    if (field === "phone" && formData.phone.length !== 10) {
+      toast.error("Phone number must be exactly 10 digits");
+      return;
+  }
+  setEditMode((prev) => ({ ...prev, [field]: false }));
+  setCurrentField(field);
+  setFormFields(field);
+  setIsModalVisible(true);
+};
+>>>>>>> 50d8b36 (first commit)
 
   const handleInputChange = (field, value) => {
     if(field === "phone" && value.length > 10) return toast.error("Phone number must be 10 digits");

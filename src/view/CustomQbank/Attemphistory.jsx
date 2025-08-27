@@ -125,10 +125,17 @@ const Attemphistory = () => {
                         }
                         style={{
                           backgroundColor: !data?.status
+<<<<<<< HEAD
                             ? "#54B434" // Start button color
                             : data?.status == 1
                             ? "#ED633D" // Resume button color
                             : "#3F5395", // Review button color
+=======
+                            ? "#08D002" // Start button color
+                            : data?.status == 1
+                            ? "#FF9500" // Resume button color
+                            : "#007aff", // Review button color
+>>>>>>> 50d8b36 (first commit)
                           color: "white",
                         }}
                       >

@@ -29,7 +29,11 @@ const NewsArticledetails = () => {
     ? sessionStorage.getItem("id")
     : 4;
   const [newarticel, setnewart] = useState(null);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 50d8b36 (first commit)
   // Begin: pop up code
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -46,7 +50,12 @@ const NewsArticledetails = () => {
   const [newComment,setNewComment] = useState("");
   const [commentLoading, setCommentLoading] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
+<<<<<<< HEAD
 
+=======
+  
+  const [newsID, setNewsID] = useState(null);
+>>>>>>> 50d8b36 (first commit)
 
   const showConfirm = (comment) => {
     AntModal.confirm({
@@ -58,7 +67,11 @@ const NewsArticledetails = () => {
         handleDeleteComment(comment.id);
       },
       onCancel() {
+<<<<<<< HEAD
         console.log('Cancelled');
+=======
+        // console.log('Cancelled');
+>>>>>>> 50d8b36 (first commit)
       },
     });
   };
@@ -70,7 +83,11 @@ const handleDeleteComment =async (cid)=>{
     {
       id: cid,
       user_id: userid,
+<<<<<<< HEAD
       post_id: passedId[1],
+=======
+      post_id: passedId[1] == null ?  newsID : passedId[1] ,
+>>>>>>> 50d8b36 (first commit)
     }
   )
   if(response?.data?.success){
@@ -82,7 +99,11 @@ const handleDeleteComment =async (cid)=>{
     const response = await axiosInstance.post(
       API_ENDPOINTS.NEWS_AND_ARTICLES.ADD_COMMENT,
       {
+<<<<<<< HEAD
         post_id: passedId[1],
+=======
+        post_id: passedId[1] == null ?  newsID : passedId[1] ,
+>>>>>>> 50d8b36 (first commit)
         user_id: userid,
         comment: newComment
       }
@@ -105,7 +126,11 @@ const handleDeleteComment =async (cid)=>{
     const response = await axiosInstance.post(
       API_ENDPOINTS.NEWS_AND_ARTICLES.GET_POST_COMMENT,
       {
+<<<<<<< HEAD
         post_id: passedId[1],
+=======
+        post_id: passedId[1] == null ? newsID : passedId[1],
+>>>>>>> 50d8b36 (first commit)
         user_id: userid,
       }
     )
@@ -123,9 +148,13 @@ const handleDeleteComment =async (cid)=>{
       .replace(/_/g,":")
       .replace(/ Cell Based /g, " Cell-Based ")
       .replace(/ Gene Editing /g, " Gene-Editing ")
+<<<<<<< HEAD
   };
   // console.log(slugify(articleInfo[1]));
 
+=======
+    };
+>>>>>>> 50d8b36 (first commit)
   const getCalled = async () => {
     const checkIsSlug = parseInt(slug, 10);
     if (isNaN(Number(checkIsSlug))) {
@@ -137,6 +166,10 @@ const handleDeleteComment =async (cid)=>{
         const selected = articleData?.data?.data?.find(
           (item) => item.title === slugify(articleInfo[1])
         );
+<<<<<<< HEAD
+=======
+        selected  ? setNewsID( selected.id ) : setNewsID('')
+>>>>>>> 50d8b36 (first commit)
         if (!selected) {
           try {
             const response = await axiosInstance.post(
@@ -169,7 +202,11 @@ const handleDeleteComment =async (cid)=>{
             user_id: userid,
             isAi: selected?.isAi,
             type: selected?.type,
+<<<<<<< HEAD
             id: selected.id,
+=======
+            id: selected?.id,
+>>>>>>> 50d8b36 (first commit)
           }
         );
         setnewart(response?.data?.data?.article);

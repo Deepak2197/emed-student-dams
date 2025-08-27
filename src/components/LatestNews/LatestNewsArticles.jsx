@@ -167,7 +167,11 @@ const LatestNewsArticles = ({ newzData, title, breadValue }) => {
                   className="newsBoxSet"
                 >
                   <div className="newsPics ">
+<<<<<<< HEAD
                     <img
+=======
+                    <img style={{cursor:'pointer'}}
+>>>>>>> 50d8b36 (first commit)
                       src={
                         resullt?.image == null ? "/news.png" : resullt?.image
                       }

@@ -234,7 +234,11 @@
 /* Begin: Recorded videos page */
 
 .recorded-video-course {
+<<<<<<< HEAD
   margin: 0px 0 50px;
+=======
+  padding: 0px 0 50px;
+>>>>>>> 50d8b36 (first commit)
   background: #fafafa;
 }
 .recorded-video-course .banner_back {

@@ -4,6 +4,10 @@ import axiosInstance from "../../API/axiosConfig";
 import "../../assets/css/bookmark/style.css";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from "../../ulits/apiConstant";
+<<<<<<< HEAD
+=======
+import {Modal } from "react-bootstrap";
+>>>>>>> 50d8b36 (first commit)
 
 const CreateTest = () => {
   // State definitions
@@ -20,6 +24,12 @@ const CreateTest = () => {
   const [myselectid1, setMyselectid1] = useState(""); // Selected topic IDs for "Choose Subject"
   const [mode, setMode] = useState(1); // Test mode (1 for Exam, 2 for Guide)
 
+<<<<<<< HEAD
+=======
+  const [modal,setModal] = useState(false);
+  const [moduleData,setModuleData] = useState({});
+
+>>>>>>> 50d8b36 (first commit)
   const navigate = useNavigate();
   const course_id = '385'; // Hardcoded course ID
   const user_id = sessionStorage.getItem("id"); // User ID from session storage
@@ -89,7 +99,11 @@ const CreateTest = () => {
     if (allselected && allsub.length > 0) {
       // Select all subjects and topics in "All Subjects" mode
       const allSubjectIds = allsub
+<<<<<<< HEAD
         .map((subject) => subject.subject_id)
+=======
+        .map((subject) => subject.topicid)
+>>>>>>> 50d8b36 (first commit)
         .filter((id) => id)
         .join(",");
       const allTopicIds = allsub
@@ -111,6 +125,10 @@ const CreateTest = () => {
 
   // Handle subject selection in "All Subjects" mode
   const handleCheckboxChange = (subjectId) => {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 50d8b36 (first commit)
     if (allselected) {
       const subjectIdsArray = selectedIds
         ? selectedIds.split(",").filter((id) => id)
@@ -118,12 +136,22 @@ const CreateTest = () => {
       const topicIdsArray = topicIds
         ? topicIds.split(",").filter((id) => id)
         : [];
+<<<<<<< HEAD
 
       if (subjectIdsArray.includes(String(subjectId))) {
         // Deselect subject and its topics
         const newSubjectIds = subjectIdsArray.filter(
           (id) => id !== String(subjectId)
         );
+=======
+      if (subjectIdsArray.find((id) => id == subjectId)) {
+        // Deselect subject and its topics
+        
+        const newSubjectIds = subjectIdsArray.filter(
+          (id) => id !== subjectId
+        );
+        
+>>>>>>> 50d8b36 (first commit)
         const subject = allsub.find((s) => s.subject_id === subjectId);
         const topicIdsToRemove =
           subject?.topics?.map((topic) => String(topic.id)) || [];
@@ -152,6 +180,7 @@ const CreateTest = () => {
   // Handle subject selection in "Choose Subject" mode (auto-select all topics)
   const handleCheckboxChange1 = (subjectId) => {
     if (!allselected) {
+<<<<<<< HEAD
       const subjectIdsArray = myselectid
         ? myselectid.split(",").filter((id) => id)
         : [];
@@ -159,6 +188,17 @@ const CreateTest = () => {
         ? myselectid1.split(",").filter((id) => id)
         : [];
 
+=======
+
+      const subjectIdsArray = myselectid
+        ? myselectid.split(",").filter((id) => id)
+        : [];
+        
+      const topicIdsArray = myselectid1
+        ? myselectid1.split(",").filter((id) => id)
+        : [];
+      
+>>>>>>> 50d8b36 (first commit)
       let newSubjectIds = [...subjectIdsArray];
       let newTopicIds = [...topicIdsArray];
 
@@ -176,7 +216,11 @@ const CreateTest = () => {
       } else {
         // Select subject and auto-select all its topics
         newSubjectIds = [...subjectIdsArray, String(subjectId)];
+<<<<<<< HEAD
         const subject = allsub.find((s) => s.subject_id === subjectId);
+=======
+        const subject = allsub.find((s) => s.topicid === subjectId);
+>>>>>>> 50d8b36 (first commit)
         const topicIdsToAdd =
           subject?.topics?.map((topic) => String(topic.id)) || [];
         newTopicIds = [...topicIdsArray, ...topicIdsToAdd].filter(
@@ -226,17 +270,31 @@ const CreateTest = () => {
         topics: allselected ? topicIds : myselectid1,
         mode,
         tags: "",
+<<<<<<< HEAD
         course_id,
+=======
+        qbank_course_id:course_id,
+>>>>>>> 50d8b36 (first commit)
       };
 
       const endpoint = allselected
         ? API_ENDPOINTS.CUSTOM_QBANK.CUSTOM_QBANK_FOR_TEST
+<<<<<<< HEAD
         : API_ENDPOINTS.CUSTOM_QBANK.CREATE_QBANK_NEW;
 
       const res = await axiosInstance.post(endpoint, payload);
 
       if (res?.data?.data?.id) {
         navigate(`/topic-share/${res.data.data.id}`);
+=======
+        : API_ENDPOINTS.CUSTOM_QBANK.CUSTOM_QBANK_FOR_TEST;
+
+      const res = await axiosInstance.post(endpoint, payload);
+      if (res?.data?.data?.id) {
+        setModal(true);
+        setModuleData(res?.data?.data);
+        // navigate(`/topic-share/${res.data.data.id}`);
+>>>>>>> 50d8b36 (first commit)
       } else {
         alert("Test creation failed: No test ID returned.");
       }
@@ -246,6 +304,26 @@ const CreateTest = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const handleChallenge = ()=>{
+    navigate(`/topic-share/${moduleData?.id}`);
+  }
+  function convertTimestampToDate(timestamp) {
+  if (!timestamp) return "";
+  const date = new Date(timestamp * 1000); // convert seconds → ms
+  return date.toLocaleString("en-IN", {
+    weekday: "long",   // e.g., Tuesday
+    year: "numeric",   // e.g., 2025
+    month: "long",     // e.g., August
+    day: "numeric",    // e.g., 26
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+}
+
+>>>>>>> 50d8b36 (first commit)
   return (
     <div className="customQBank">
       <div className="container">
@@ -320,7 +398,11 @@ const CreateTest = () => {
 
               <div className="allSelectedData">
                 {allsub?.map((subject) => (
+<<<<<<< HEAD
                   <div className="allSubMap" key={subject.subject_id}>
+=======
+                  <div className="allSubMap" key={subject.topicid}>
+>>>>>>> 50d8b36 (first commit)
                     <div className="allSubInner">
                       <input
                         type="checkbox"
@@ -329,6 +411,7 @@ const CreateTest = () => {
                           allselected
                             ? selectedIds
                                 .split(",")
+<<<<<<< HEAD
                                 .includes(String(subject.subject_id))
                             : myselectid
                                 .split(",")
@@ -338,11 +421,23 @@ const CreateTest = () => {
                           allselected
                             ? handleCheckboxChange(subject.subject_id)
                             : handleCheckboxChange1(subject.subject_id)
+=======
+                                .includes(String(subject.topicid))
+                            : myselectid
+                                .split(",")
+                                .includes(String(subject.topicid))
+                        }
+                        onChange={() =>
+                          allselected
+                            ? handleCheckboxChange(subject.topicid)
+                            : handleCheckboxChange1(subject.topicid)
+>>>>>>> 50d8b36 (first commit)
                         }
                       />
                       <span className="selectName">{subject.topic_name}</span>
                       <button
                         className="btndefinedata"
+<<<<<<< HEAD
                         onClick={() => handleSeeTopics(subject.subject_id)}
                       >
                         {visibleSubjectId === subject.subject_id
@@ -352,6 +447,17 @@ const CreateTest = () => {
                     </div>
 
                     {visibleSubjectId === subject.subject_id &&
+=======
+                        onClick={() => handleSeeTopics(subject.topicid)}
+                      >
+                        {visibleSubjectId === subject.topicid
+                          ? "Hide Topics"
+                          : "See Topics"}
+                      </button> 
+                    </div>
+
+                    {visibleSubjectId === subject.topicid &&
+>>>>>>> 50d8b36 (first commit)
                       subject.topics?.length > 0 && (
                         <div className="leftData">
                           {subject.topics.map((topic) => (
@@ -509,6 +615,50 @@ const CreateTest = () => {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      {modal && (
+        <Modal
+          show={modal}
+          onHide={() => {
+            setModal(false);
+          }}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+             
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="text-center">
+              <h3 className="mt-3">Module From All Qbank</h3>
+              <p className="mt-2">Created On : {convertTimestampToDate(moduleData.creation)} </p>
+              <p className="mt-2">Subject :{moduleData.subjects}</p>
+              <p className="mt-2">Difficulty Level : {moduleData.mode} </p>
+              <p className="mt-2">Mode :{moduleData.mode} </p>
+              
+              <div>
+              <img
+                src='./logo.png'
+                alt="complete"
+                style={{ width: "100px", height: "100px" }}
+              />
+              <p className="mt-2" style={{ color: "Orange" }}  >Question Bank</p>
+              <p className="mt-2" >{moduleData.no_of_question} Questions </p>
+                </div>
+              <div style={{ display: "flex", justifyContent: "space-between" , width: "50%", margin: "auto" }} >
+                <button style={{ backgroundColor: "black", color: "white", padding: "10px 20px"}} >Start Now</button>
+                <button style={{ backgroundColor: "grey", color: "white", padding: "10px 20px"}} onClick={handleChallenge} >Challenge</button>
+              </div>
+              
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
+>>>>>>> 50d8b36 (first commit)
     </div>
   );
 };

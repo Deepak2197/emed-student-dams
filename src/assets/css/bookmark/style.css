@@ -54,7 +54,11 @@
   padding: 14px 20px;
   border-radius: 16px;
   margin-bottom: 24px;
+<<<<<<< HEAD
   box-shadow: #3f53951a 0 1px 3px, #3f53950f 0 1px 2px;
+=======
+  box-shadow: #007aff1a 0 1px 3px, #007aff0f 0 1px 2px;
+>>>>>>> 50d8b36 (first commit)
 }
 .BookMarkdata .posttitleSet .ttr-post-header {
   display: flex;
@@ -76,7 +80,11 @@
 }
 .BookMarkdata .ttr-post-info svg {
   width: 22px;
+<<<<<<< HEAD
   color: #3f5395;
+=======
+  color: #007aff;
+>>>>>>> 50d8b36 (first commit)
   padding: 0;
 }
 .BookMarkdata .my-bookmark .nav-tabs .nav-link {
@@ -163,7 +171,11 @@
   box-shadow: 0 0 0 0px !important;
 }
 .BookMarkdata .course_type .enroll_now .btn.full_amount {
+<<<<<<< HEAD
   background: #3f5395;
+=======
+  background: #007aff;
+>>>>>>> 50d8b36 (first commit)
   font-size: 13px;
   display: block;
   width: 100%;
@@ -242,6 +254,7 @@
 }
 
 .DqbBookmarkData .widget.curriculum-emez {
+<<<<<<< HEAD
   /* border-bottom: 1px solid #eee; */
   padding-bottom: 10px;
   margin-bottom: 15px;
@@ -249,6 +262,12 @@
 /* .DqbBookmarkData .widget.curriculum-emez .widget-post-bx ul{
     margin-left: 55px !important;
 } */
+=======
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+>>>>>>> 50d8b36 (first commit)
 .DqbBookmarkData .widget-post-bx .questionBoxSet {
   border: solid 1px #e7e7e7;
   padding: 12px 20px;
@@ -256,6 +275,7 @@
   border-radius: 16px;
 }
 .DqbBookmarkData .listbox_bookmark {
+<<<<<<< HEAD
   /* background: #297e22; */
   background: rgb(229, 234, 249);
   background: linear-gradient(
@@ -266,6 +286,12 @@
   width: 50px;
   height: 50px;
   /* width: 3%; */
+=======
+  background: #eeeeee;
+  background: linear-gradient(184deg, #eeeeee 15%, #fff);
+  width: 50px;
+  height: 50px;
+>>>>>>> 50d8b36 (first commit)
   float: left;
   border-radius: 50px;
   margin-right: 15px;
@@ -274,7 +300,11 @@
   align-items: center;
 }
 .DqbBookmarkData .listbox_bookmark h1 {
+<<<<<<< HEAD
   color: #3f5395;
+=======
+  color: #007aff;
+>>>>>>> 50d8b36 (first commit)
   margin-bottom: 0px;
   font-size: 21px;
   line-height: 0px;
@@ -417,7 +447,11 @@
 }
 .btndefinedata {
   width: 150px;
+<<<<<<< HEAD
   /* background-color: #3F5395; */
+=======
+  /* background-color: #007aff; */
+>>>>>>> 50d8b36 (first commit)
   padding: 5px 0;
   border-radius: 5px;
   color: #757575;

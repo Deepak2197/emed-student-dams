@@ -55,9 +55,15 @@
 .headerdata .menu-links li img.locate-img-b {
   width: 20px;
   height: 19px;
+<<<<<<< HEAD
   /* filter: brightness(0.2); */
   filter: brightness(0%);
   margin-left: 0px;
+=======
+  margin-left: 0px;
+  filter: brightness(0) saturate(100%) invert(3%) sepia(1%) saturate(757%)
+    hue-rotate(314deg) brightness(97%) contrast(79%);
+>>>>>>> 50d8b36 (first commit)
 }
 
 .headerdata .menu-links .nav i {

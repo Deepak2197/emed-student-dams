@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../../API/axiosConfig";
 
+=======
+import { useEffect, useState } from "react";
+import axiosInstance from "../../../API/axiosConfig";
+>>>>>>> 50d8b36 (first commit)
 import Chart from "react-apexcharts";
 import ReactApexChart from "react-apexcharts";
 import { Progress } from "antd";
 import "../../Performance/style.css";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 50d8b36 (first commit)
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,8 +22,13 @@ import {
   Title,
   Tooltip,
   Legend,
+<<<<<<< HEAD
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+=======
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+>>>>>>> 50d8b36 (first commit)
 
 ChartJS.register(
   CategoryScale,
@@ -26,8 +39,11 @@ ChartJS.register(
   Legend
 );
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 50d8b36 (first commit)
 const QBank = ({
   filterArray,
   qBankID,
@@ -35,13 +51,17 @@ const QBank = ({
   existDataOrNot,
   userID,
 }) => {
+<<<<<<< HEAD
   
+=======
+>>>>>>> 50d8b36 (first commit)
   const [firstGraphData, setFirstGrapghData] = useState([]);
   const [secondGraphData, setSecondGraphData] = useState([]);
   const [allCategoryList, setAllCategoryList] = useState([]);
   const [subjectID, setSubjectID] = useState(null);
   const [subjectCheckID, setSubjectCheckID] = useState(null);
   const [topAccuracyReportData, setTopAccuracyReportData] = useState([[]]);
+<<<<<<< HEAD
 
   const [qBankIDValue, setQBankIDValue] = useState(null);
   const [qBankCheckIDValue, setQBankCheckIDValue] = useState(null);
@@ -49,6 +69,12 @@ const QBank = ({
 
   const labels = secondGraphData.map((val)=>val.subject_name)
 
+=======
+  const [qBankIDValue, setQBankIDValue] = useState(null);
+  const [qBankCheckIDValue, setQBankCheckIDValue] = useState(null);
+  const [topAnalysisData, settopAnalysisData] = useState([[]]);
+  const labels = secondGraphData.map((val) => val.subject_name);
+>>>>>>> 50d8b36 (first commit)
   //   GRAPH DESIGN Starts here
   const chartOptions = {
     chart: {
@@ -136,6 +162,7 @@ const QBank = ({
     },
   ];
 
+<<<<<<< HEAD
 
 
 const options = {
@@ -188,6 +215,52 @@ const data = {
 
   
   
+=======
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart.js Bar Chart - Stacked",
+      },
+    },
+    responsive: true,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  };
+
+  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  // const generateRandomData = () => {
+  //     return labels.map(() => Math.floor(Math.random() * 2000) - 1000); // Generates random numbers between -1000 and 1000
+  //   };
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "",
+        data: secondGraphData.map((val) => val.accuracy_percentage),
+        backgroundColor: "#25E200",
+        stack: "Stack 0",
+      },
+      {
+        label: "",
+        data: secondGraphData.map((val) => 0 - val.inaccuracy_percentage),
+        backgroundColor: "rgb(255, 99, 132)",
+        stack: "Stack 0",
+      },
+    ],
+  };
+>>>>>>> 50d8b36 (first commit)
 
   //   GRAPH DESIGN Finish here
 
@@ -204,9 +277,13 @@ const data = {
       );
       setFirstGrapghData(res.data.data);
       getSecondGraph(userId, cID);
+<<<<<<< HEAD
     } catch (error) {
      
     }
+=======
+    } catch (error) {}
+>>>>>>> 50d8b36 (first commit)
   };
 
   //   2 request
@@ -222,9 +299,13 @@ const data = {
       );
       setSecondGraphData(res.data.data);
       getAllCategoryListFetch(userId, cID);
+<<<<<<< HEAD
     } catch (error) {
      
     }
+=======
+    } catch (error) {}
+>>>>>>> 50d8b36 (first commit)
   };
 
   const getAllCategoryListFetch = async (userId, cID) => {
@@ -241,9 +322,13 @@ const data = {
       setQBankCheckIDValue(res.data.data[0].id);
       topicAccuracyReport(userId, cID, res.data.data[0].id);
       topicWiseAnalysis(userId, cID, res.data.data[0].id);
+<<<<<<< HEAD
     } catch (error) {
      
     }
+=======
+    } catch (error) {}
+>>>>>>> 50d8b36 (first commit)
   };
 
   const topicAccuracyReport = async (userId, cID, sID) => {
@@ -259,9 +344,13 @@ const data = {
       );
       //   setAllSubjectResData(res.data.data);
       setTopAccuracyReportData(res.data.data);
+<<<<<<< HEAD
     } catch (error) {
       
     }
+=======
+    } catch (error) {}
+>>>>>>> 50d8b36 (first commit)
   };
 
   const topicWiseAnalysis = async (userId, cID, sID) => {
@@ -277,9 +366,13 @@ const data = {
       );
       settopAnalysisData(res.data.data);
       //   setTopAccuracyReportData(res.data.data);
+<<<<<<< HEAD
     } catch (error) {
    
     }
+=======
+    } catch (error) {}
+>>>>>>> 50d8b36 (first commit)
   };
 
   useEffect(() => {
@@ -288,6 +381,7 @@ const data = {
     }
   }, [existDataOrNot]);
 
+<<<<<<< HEAD
 
   useEffect(() => {
     if(subjectCheckID !== subjectID){
@@ -303,6 +397,20 @@ const data = {
   }, [qBankIDValue]);
 
 
+=======
+  useEffect(() => {
+    if (subjectCheckID !== subjectID) {
+      topicAccuracyReport(userID, qBankID, subjectID);
+    }
+  }, [subjectID]);
+
+  useEffect(() => {
+    if (qBankCheckIDValue !== qBankIDValue) {
+      topicWiseAnalysis(userID, qBankID, qBankIDValue);
+    }
+  }, [qBankIDValue]);
+
+>>>>>>> 50d8b36 (first commit)
   return (
     <>
       <div className="QbankData">
@@ -315,10 +423,16 @@ const data = {
       </div>
 
       <div className="QbankData">
+<<<<<<< HEAD
        <Bar options={options} data={data} /> 
       </div>
 
 
+=======
+        <Bar options={options} data={data} />
+      </div>
+
+>>>>>>> 50d8b36 (first commit)
       <div className="DqbData">
         {allCategoryList && allCategoryList.length > 0 && (
           <div className="row dropMargin" style={{ margin: "5px" }}>
@@ -391,9 +505,13 @@ const data = {
         {topAnalysisData?.length > 0 ? (
           <>
             {topAnalysisData?.map((itm, i) => (
+<<<<<<< HEAD
               <div className="AnalysisChild"
               key={i}
               >
+=======
+              <div className="AnalysisChild" key={i}>
+>>>>>>> 50d8b36 (first commit)
                 <h6>Title</h6>
                 <div className="progresData">
                   <span>Accuracy</span>
@@ -404,12 +522,25 @@ const data = {
                 </div>
                 <span>Total Attempt:{itm.total_attempt}</span>
                 <br />
+<<<<<<< HEAD
                 <span style={{ color: "#28a745", fontWeight:'600', marginRight:'20px' }}>
                   Correct:{itm.total_correct}
                 </span>
                 <span>
                   Total Question:{itm?.total_questions}
                 </span>
+=======
+                <span
+                  style={{
+                    color: "#28a745",
+                    fontWeight: "600",
+                    marginRight: "20px",
+                  }}
+                >
+                  Correct:{itm.total_correct}
+                </span>
+                <span>Total Question:{itm?.total_questions}</span>
+>>>>>>> 50d8b36 (first commit)
               </div>
             ))}
           </>
