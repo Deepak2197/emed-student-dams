@@ -16,15 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Or your preferred Node.js version
+          node-version: '18'
 
-      - name: Install dependencies
+      - name: Install dependencies and build
         run: |
           npm install --legacy-peer-deps
-          npm run build
-      - name: Build React app with Vite
-        run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'  
-      
+          npx cross-env NODE_OPTIONS="--max-old-space-size=4096" npm run build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -33,6 +31,7 @@ jobs:
           aws-region: ap-south-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./dist s3://web-student-dams 
+        run: aws s3 sync ./dist s3://web-student-dams --delete
         env:
           AWS_REGION: ap-south-1
+
