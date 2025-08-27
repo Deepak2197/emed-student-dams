@@ -19,10 +19,9 @@ jobs:
           node-version: '18' # Or your preferred Node.js version
 
       - name: Install dependencies
-        run: npm install -f
-
-      - name: Build React app with Vite
-        run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
