@@ -21,10 +21,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.24.3",
     "axios": "^1.7.7",
-<<<<<<< HEAD
-=======
     "chart.js": "^4.5.0",
->>>>>>> 50d8b36 (first commit)
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.6",
     "esbuild": "^0.25.0",
@@ -83,3 +80,4 @@
     "vite-plugin-css": "^1.0.4"
   }
 }
+
