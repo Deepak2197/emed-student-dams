@@ -19,7 +19,7 @@ jobs:
           node-version: '18' # Or your preferred Node.js version
 
       - name: Install dependencies
-        run: npm install --exact
+        run: npm install -f
 
       - name: Build React app with Vite
         run: npx cross-env NODE_OPTIONS='--max-old-space-size=4096'
@@ -32,6 +32,6 @@ jobs:
           aws-region: ap-south-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./build s3://web-student-dams 
+        run: aws s3 sync ./dist s3://web-student-dams 
         env:
           AWS_REGION: ap-south-1
