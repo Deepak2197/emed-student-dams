@@ -27,6 +27,8 @@ jobs:
 
       - name: Build Vite project
         run: npm run build # Or yarn build if using yarn
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
