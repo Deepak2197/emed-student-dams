@@ -3,7 +3,7 @@ name: Deploy React App to S3 and CloudFront
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - main
 
 jobs:
   build-and-deploy:
@@ -12,6 +12,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Validate package.json
+        run: |
+          if ! jq . package.json > /dev/null 2>&1; then
+            echo "❌ package.json has syntax errors or merge conflicts"
+            exit 1
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,4 +41,3 @@ jobs:
         run: aws s3 sync ./dist s3://web-student-dams --delete
         env:
           AWS_REGION: ap-south-1
-
